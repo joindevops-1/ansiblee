@@ -58,18 +58,33 @@
     debug:
       msg: "{{ enabled | ternary('no shutdown', 'shutdown', omit) }}"
 
-  - name: Read YAML file and convert to JSON
-    set_fact:
-      yaml_data: "{{ lookup('file', 'student.yaml') | from_yaml }}"
+  # - name: Read YAML file and convert to JSON
+  #   set_fact:
+  #     yaml_data: "{{ lookup('file', 'student.yaml') | from_yaml }}"
 
-  - name: Save JSON output to file
-    copy:
-      content: "{{ yaml_data | to_nice_json }}"
-      dest: "./data.json"
+  # - name: Save JSON output to file
+  #   copy:
+  #     content: "{{ yaml_data | to_nice_json }}"
+  #     dest: "./data.json"
 
-  - name: Show JSON output
-    debug:
-      msg: "{{ yaml_data | to_nice_json }}"
+  # - name: Show JSON output
+  #   debug:
+  #     msg: "{{ yaml_data | to_nice_json }}"
 
-  - name: Print environment variable
-    ansible.builtin.shell: echo $HOME
+  - name: Try with command (should FAIL)
+    ansible.builtin.command: cat /etc/passwd | grep root
+    register: command_out
+    ignore_errors: true
+
+  - name: Show failure message
+    ansible.builtin.debug:
+      msg: "Command module result: {{ command_out.msg | default('No message') }}"
+
+  - name: Try with shell (should SUCCEED)
+    ansible.builtin.shell: cat /etc/passwd | grep root
+    register: shell_out
+    changed_when: false
+
+  - name: Show shell output
+    ansible.builtin.debug:
+      msg: "{{ shell_out.stdout }}"
