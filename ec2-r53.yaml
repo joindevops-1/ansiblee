@@ -1,4 +1,4 @@
-- name: create ec2 and r53
+- name: "{{ action }} ec2 and r53"
   hosts: local
   connection: local
   vars:
@@ -7,13 +7,13 @@
     zone_id: "Z0948150OFPSYTNVYZOY" # replace with your ID
     domain_name: "daws86s.fun"
     action: absent
-    instances: 
-    - mongodb
-    - redis
-    - mysql
-    - rabbitmq
+    # instances: 
+    # - mongodb
+    # - redis
+    # - mysql
+    # - rabbitmq
   tasks:
-  - name: create ec2 instance
+  - name: "{{ action }} ec2 instance"
     amazon.aws.ec2_instance:
       state: "{{ action }}"
       name: "{{ item }}"
