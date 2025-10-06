@@ -62,6 +62,11 @@
     set_fact:
       yaml_data: "{{ lookup('file', 'student.yaml') | from_yaml }}"
 
+  - name: Save JSON output to file
+    copy:
+      content: "{{ yaml_data | to_nice_json }}"
+      dest: "./data.json"
+
   - name: Show JSON output
     debug:
       msg: "{{ yaml_data | to_nice_json }}"
