@@ -1,6 +1,6 @@
 - name: functions
-  hosts: local
-  connection: local
+  hosts: runner
+  #connection: local
   vars:
     persons: "Ramesh,Suresh,Raheem,Joseph"
     status: needs_restart
