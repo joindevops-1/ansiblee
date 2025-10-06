@@ -70,3 +70,6 @@
   - name: Show JSON output
     debug:
       msg: "{{ yaml_data | to_nice_json }}"
+
+  - name: Print environment variable
+    ansible.builtin.command: echo $HOME
