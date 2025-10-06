@@ -69,4 +69,4 @@
 
   - name: Show JSON output
     debug:
-      msg: "{{ to_nice_json }}"
+      msg: "{{ yaml_data | to_nice_json }}"
