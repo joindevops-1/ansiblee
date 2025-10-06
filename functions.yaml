@@ -3,6 +3,8 @@
   connection: local
   vars:
     persons: "Ramesh,Suresh,Raheem,Joseph"
+    status: needs_restart
+    enabled: false
   tasks:
   - name: check undefined variable
     ansible.builtin.debug:
@@ -47,3 +49,11 @@
       ip: "192.168.1.1"
     ansible.builtin.debug:
       msg: "{{ ip | ansible.utils.ipaddr }}"
+
+  - name: Example 1 - Simple ternary
+    debug:
+      msg: "{{ (status == 'needs_restart') | ternary('restart service', 'continue service') }}"
+
+  - name: Example 2 - Ternary with null handling
+    debug:
+      msg: "{{ enabled | ternary('no shutdown', 'shutdown', omit) }}"
