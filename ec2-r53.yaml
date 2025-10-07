@@ -1,4 +1,4 @@
-- name: "{{ action }} ec2 and r53"
+- name: "ec2 and r53"
   hosts: local
   connection: local
   vars:
@@ -6,12 +6,12 @@
     sg_id: sg-07c8acf3fa6b923fa # replace with your SG ID
     zone_id: "Z0948150OFPSYTNVYZOY" # replace with your ID
     domain_name: "daws86s.fun"
-    action: absent
-    # instances: 
-    # - mongodb
-    # - redis
-    # - mysql
-    # - rabbitmq
+    action: present
+    instances: 
+    - mongodb
+    - redis
+    - mysql
+    - rabbitmq
   tasks:
   - name: "{{ action }} ec2 instance"
     amazon.aws.ec2_instance:
